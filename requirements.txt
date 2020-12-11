@@ -21,6 +21,7 @@ mysqlclient==2.0.1
 packaging==20.7
 Pillow==8.0.1
 psycopg2==2.8.6
+psycopg2-binary==2.8.6
 pyparsing==2.4.7
 pytz==2020.4
 requests==2.25.0
