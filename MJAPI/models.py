@@ -17,7 +17,7 @@ class Retailer(models.Model):
     description = models.TextField(blank=True, null=True)
     rating = models.IntegerField(blank=True, null=True)
     logo = models.ImageField(upload_to='pictures/retailers/')
-    contact = models.ForeignKey(Contact, on_delete=models.CASCADE)
+    contact = models.OneToOneField(Contact, on_delete=models.CASCADE)
     address = models.CharField(default='', max_length=100)
     city = models.CharField(default='', max_length=25)
     zip = models.IntegerField(default=69001)
@@ -33,7 +33,7 @@ class Retailer(models.Model):
 
 
 class DeliveryPartner(models.Model):
-    contact = models.ForeignKey(Contact, on_delete=models.CASCADE)
+    contact = models.OneToOneField(Contact, on_delete=models.CASCADE)
     rating = models.IntegerField(blank=True, null=True)
     picture = models.ImageField(upload_to='pictures/delivery-staff/')
     address = models.CharField(default='', max_length=100)
@@ -45,7 +45,7 @@ class DeliveryPartner(models.Model):
 
 
 class Customer(models.Model):
-    contact = models.ForeignKey(Contact, on_delete=models.CASCADE)
+    contact = models.OneToOneField(Contact, on_delete=models.CASCADE)
     address = models.CharField(default='', max_length=100)
     city = models.CharField(default='', max_length=25)
     zip = models.IntegerField(default=69001)
