@@ -41,7 +41,7 @@ class DeliveryPartner(models.Model):
 
 class Customer(models.Model):
     contact = models.ForeignKey(Contact, on_delete=models.CASCADE)
-    favoriteShops = models.ForeignKey(Retailer, on_delete=models.DO_NOTHING)
+    favoriteShops = models.ManyToManyField(Retailer)
 
     def __str__(self):
         return f'Customer - {self.contact.firstName}'
@@ -49,9 +49,14 @@ class Customer(models.Model):
 
 class Category(models.Model):
     label = models.CharField(max_length=100)
+    glyph = models.ImageField(upload_to='glyphs/')
 
     def __str__(self):
         return self.label
+
+
+class Images(models.Model):
+    image = models.ImageField(upload_to='products/')
 
 
 class Product(models.Model):
@@ -60,6 +65,7 @@ class Product(models.Model):
     pricingModel = models.CharField(max_length=50)
     category = models.ForeignKey(Category, on_delete=models.DO_NOTHING)
     retailer = models.ForeignKey(Retailer, on_delete=models.DO_NOTHING)
+    image = models.ForeignKey(Images, on_delete=models.SET_NULL, null=True)
     rating = models.IntegerField(blank=True, null=True)
     prepTime = models.IntegerField()
 
