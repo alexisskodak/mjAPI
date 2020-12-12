@@ -5,13 +5,14 @@ urlpatterns = [
     path('contacts/', ContactViewSet.as_view(
         {
             'get': 'list',
-        }
-    )),
+            'post': 'create'
+        })),
     path('contacts/<int:pk>/', ContactViewSet.as_view(
         {
             'get': 'retrieve',
-        }
-    )),
+            'put': 'update',
+            'delete': 'destroy'
+        })),
     path('retailers/', RetailerViewSet.as_view(
         {
             'get': 'list',

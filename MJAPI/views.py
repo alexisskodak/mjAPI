@@ -11,10 +11,6 @@ from .serializers import *
 
 
 class ContactViewSet(viewsets.ViewSet, viewsets.GenericViewSet):
-    """
-    Read only ViewSet since Contacts should be created by children Objects
-    such as Retailer, Delivery Partners and Customers
-    """
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
     serializer_class = ContactSerializer
