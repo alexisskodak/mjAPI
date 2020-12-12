@@ -14,11 +14,12 @@ class RetailerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Retailer
         fields = '__all__'
+        depth = 1
 
     def create(self, validated_data):
         contact_data = validated_data.pop('contact')
         retailer = Retailer.objects.create(**validated_data)
-        Contact.objects.create(Contact=contact_data, Retailer=retailer)
+        Contact.objects.create(Retailer=retailer, **contact_data)
         return retailer
 
 
@@ -28,11 +29,12 @@ class DeliveryPartnerSerializer(serializers.ModelSerializer):
     class Meta:
         model = DeliveryPartner
         fields = '__all__'
+        depth = 1
 
     def create(self, validated_data):
         contact_data = validated_data.pop('contact')
         delivery_partner = DeliveryPartner.objects.create(**validated_data)
-        Contact.objects.create(Contact=contact_data, DeliveryPartner=delivery_partner)
+        Contact.objects.create(DeliveryPartner=delivery_partner, **contact_data)
         return delivery_partner
 
 
@@ -43,11 +45,12 @@ class CustomerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Customer
         fields = '__all__'
+        depth = 1
 
     def create(self, validated_data):
         contact_data = validated_data.pop('contact')
         customer = Customer.objects.create(**validated_data)
-        Contact.objects.create(Contact=contact_data, Customer=customer)
+        Contact.objects.create(Customer=customer, **contact_data)
         return customer
 
 
