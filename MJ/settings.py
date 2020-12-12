@@ -101,12 +101,12 @@ WSGI_APPLICATION = 'MJ.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'HOST': 'localhost',
         'NAME': env("DB_DEVNAME"),
         'USER': env("DB_DEVUSER"),
         'PASSWORD': env("DB_DEVPASSWORD"),
-        'HOST': 'localhost',
-        'PORT': '3306',
+        'PORT': '',
     }
 }
 db_from_env = dj_database_url.config()
