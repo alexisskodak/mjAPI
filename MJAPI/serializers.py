@@ -32,7 +32,7 @@ class DeliveryPartnerSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         contact_data = validated_data.pop('contact')
         delivery_partner = DeliveryPartner.objects.create(**validated_data)
-        Contact.objects.create(delivery_partner=delivery_partner, **contact_data)
+        Contact.objects.create(Contact=contact_data, DeliveryPartner=delivery_partner)
         return delivery_partner
 
 
@@ -47,7 +47,7 @@ class CustomerSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         contact_data = validated_data.pop('contact')
         customer = Customer.objects.create(**validated_data)
-        Contact.objects.create(customer=customer, **contact_data)
+        Contact.objects.create(Contact=contact_data, Customer=customer)
         return customer
 
 
