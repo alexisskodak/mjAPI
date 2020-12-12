@@ -18,7 +18,7 @@ class RetailerSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         contact_data = validated_data.pop('contact')
         retailer = Retailer.objects.create(**validated_data)
-        Contact.objects.create(retailer=retailer, **contact_data)
+        Contact.objects.create(Contact=contact_data, Retailer=retailer)
         return retailer
 
 
