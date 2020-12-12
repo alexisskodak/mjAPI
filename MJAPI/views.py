@@ -10,62 +10,33 @@ from .models import *
 from .serializers import *
 
 
-class ContactViewSet(viewsets.ViewSet, viewsets.GenericViewSet):
+class ContactViewSet(viewsets.ModelViewSet):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
     serializer_class = ContactSerializer
     queryset = Contact.objects.all()
 
-    def list(self, request):
-        return Response(self.get_serializer().data)
 
-    def retrieve(self, request, pk=None):
-        queryset = self.get_queryset()
-        obj = get_object_or_404(queryset, pk=pk)
-        serializer = self.get_serializer(obj)
-        return Response(serializer.data)
-
-    def get_object(self, pk=None):
-        obj = get_object_or_404(self.get_queryset(), pk)
-        return obj
-
-    def create(self, request):
-        return self.create(request)
-
-    def update(self, request, pk):
-        obj = self.get_object(pk)
-        serializer = self.get_serializer(obj, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    def destroy(self, request, pk):
-        obj = self.get_object(pk=pk)
-        obj.delete()
-        return HttpResponse(status=status.HTTP_204_NO_CONTENT)
-
-
-class RetailerViewSet(ContactViewSet):
+class RetailerViewSet(viewsets.ModelViewSet):
     serializer_class = RetailerSerializer
     queryset = Retailer.objects.all()
 
 
-class DeliveryPartnerViewSet(ContactViewSet):
+class DeliveryPartnerViewSet(viewsets.ModelViewSet):
     serializer_class = DeliveryPartnerSerializer
     queryset = DeliveryPartner.objects.all()
 
 
-class CustomerViewSet(ContactViewSet):
+class CustomerViewSet(viewsets.ModelViewSet):
     serializer_class = CustomerSerializer
     queryset = Customer.objects.all()
 
 
-class ProductViewSet(ContactViewSet):
+class ProductViewSet(viewsets.ModelViewSet):
     serializer_class = ProductSerializer
     queryset = Product.objects.all()
 
 
-class OrderViewSet(ContactViewSet):
+class OrderViewSet(viewsets.ViewSet):
     serializer_class = OrderSerializer
     queryset = Order.objects.all()
