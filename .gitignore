@@ -1,3 +1,5 @@
 db.env
 .idea/vcs.xml
 staticfiles/*
+MJ/__pycache__/*
+MJAPI/__pycache__/*
