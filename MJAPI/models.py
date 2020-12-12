@@ -20,7 +20,7 @@ class Retailer(models.Model):
     contact = models.ForeignKey(Contact, on_delete=models.CASCADE)
     address = models.CharField(default='', max_length=100)
     city = models.CharField(default='', max_length=25)
-    zip = models.IntegerField()
+    zip = models.IntegerField(default=69001)
     available = models.BooleanField()
     SIRET = models.CharField(max_length=100)
 
@@ -38,7 +38,7 @@ class DeliveryPartner(models.Model):
     picture = models.ImageField(upload_to='pictures/delivery-staff/')
     address = models.CharField(default='', max_length=100)
     city = models.CharField(default='', max_length=25)
-    zip = models.IntegerField()
+    zip = models.IntegerField(default=69001)
 
     def __str__(self):
         return f'Delivery partner - {self.contact.firstName}'
@@ -48,7 +48,7 @@ class Customer(models.Model):
     contact = models.ForeignKey(Contact, on_delete=models.CASCADE)
     address = models.CharField(default='', max_length=100)
     city = models.CharField(default='', max_length=25)
-    zip = models.IntegerField()
+    zip = models.IntegerField(default=69001)
     favoriteShops = models.ManyToManyField(Retailer)
 
     def __str__(self):
@@ -57,7 +57,7 @@ class Customer(models.Model):
 
 class Category(models.Model):
     label = models.CharField(max_length=100)
-    glyph = models.ImageField(upload_to='glyphs/')
+    glyph = models.ImageField(upload_to='glyphs/', default='')
 
     def __str__(self):
         return self.label
