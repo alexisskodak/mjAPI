@@ -9,7 +9,7 @@ class ContactSerializer(serializers.ModelSerializer):
 
 
 class RetailerSerializer(serializers.ModelSerializer):
-    contact = ContactSerializer()
+    contact = ContactSerializer(required=True)
 
     class Meta:
         model = Retailer
@@ -17,14 +17,19 @@ class RetailerSerializer(serializers.ModelSerializer):
         depth = 1
 
     def create(self, validated_data):
+        """
+        Overriding the default create method of the Model serializer.
+        :param validated_data: data containing all the details of student
+        :return: returns a successfully created student record
+        """
         contact_data = validated_data.pop('contact')
         retailer = Retailer.objects.create(**validated_data)
-        Contact.objects.create(Retailer=retailer, **contact_data)
+        Contact.objects.create(retailer=retailer, **contact_data)
         return retailer
 
 
 class DeliveryPartnerSerializer(serializers.ModelSerializer):
-    contact = ContactSerializer()
+    contact = ContactSerializer(required=True)
 
     class Meta:
         model = DeliveryPartner
@@ -39,7 +44,7 @@ class DeliveryPartnerSerializer(serializers.ModelSerializer):
 
 
 class CustomerSerializer(serializers.ModelSerializer):
-    contact = ContactSerializer()
+    contact = ContactSerializer(required=True)
     favoriteShops = RetailerSerializer(many=True)
 
     class Meta:
@@ -50,7 +55,7 @@ class CustomerSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         contact_data = validated_data.pop('contact')
         customer = Customer.objects.create(**validated_data)
-        Contact.objects.create(Customer=customer, **contact_data)
+        Contact.objects.create(customer=customer, **contact_data)
         return customer
 
 
