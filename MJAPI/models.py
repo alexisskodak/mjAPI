@@ -64,7 +64,7 @@ class Product(models.Model):
     name = models.CharField(max_length=100)
     price = models.FloatField()
     pricing_model = models.CharField(max_length=50)
-    category = models.ForeignKey(Category, on_delete=models.SET_NULL)
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True)
     retailer = models.ForeignKey(Retailer, on_delete=models.DO_NOTHING)
     image = models.ForeignKey(Images, on_delete=models.SET_NULL, null=True)
     rating = models.IntegerField(blank=True, null=True)
@@ -79,8 +79,8 @@ class Customer(models.Model):
     address = models.CharField(default='', max_length=100)
     city = models.CharField(default='', max_length=25)
     zip = models.IntegerField(default=69001)
-    favorite_shops = models.ManyToManyField(Retailer, null=True, blank=True)
-    favorite_products = models.ManyToManyField(Product, )
+    favorite_shops = models.ManyToManyField(Retailer)
+    favorite_products = models.ManyToManyField(Product)
 
     def __str__(self):
         return f'Customer - {self.contact.first_name}'
